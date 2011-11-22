@@ -1,4 +1,12 @@
 Attribute VB_Name = "mDLL_RuntimeInit"
+'*************************************************************************************************************************************************************************************************************************************************
+'
+' This module is from the vbAdvance product © 2001 - 2007 Young Dynamic Software. All rights reserved.
+'
+' vbAdvance is now unsupported freeware - see http://vb.mvps.org/tools/vbAdvance/
+'
+'*************************************************************************************************************************************************************************************************************************************************
+
 ' Warnings  :   DO NOT MODIFY THIS CODE UNLESS YOU KNOW EXACTLY WHAT YOU ARE DOING.
 ' Requires vbAdvance.tlb (vbAdvance Type Library) Needed only at compile-time.
 ' Requires cDummyInit.cls

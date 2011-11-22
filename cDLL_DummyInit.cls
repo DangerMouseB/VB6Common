@@ -11,6 +11,14 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = True
+'*************************************************************************************************************************************************************************************************************************************************
+'
+' This module is from the vbAdvance product © 2001 - 2007 Young Dynamic Software. All rights reserved.
+'
+' vbAdvance is now unsupported freeware - see http://vb.mvps.org/tools/vbAdvance/
+'
+'*************************************************************************************************************************************************************************************************************************************************
+
 Option Explicit
 
 Sub initVBCall()
