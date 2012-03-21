@@ -1,8 +1,7 @@
 Attribute VB_Name = "mDB_SerialiseVariant"
 '*************************************************************************************************************************************************************************************************************************************************
-'            COPYRIGHT NOTICE
 '
-' Copyright (C) David Briant 2009 - All rights reserved
+' Copyright (c) David Briant 2009-2011 - All rights reserved
 '
 '*************************************************************************************************************************************************************************************************************************************************
  
@@ -324,7 +323,7 @@ End Sub
 Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, indexOfNext As Long) As Variant
     Dim variantType As Integer, i As Long, j As Long, k As Long, dataLength As Long, SA As SAFEARRAY
     Dim aByte As Byte, anInteger As Integer, aLong As Long, aSingle As Single, aDouble As Double, aBoolean As Boolean, aDate As Date, aCurrency As Currency, aString As String, anArray As Variant
-    Dim arrayType As Integer, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long
+    Dim arrayType As Integer, nDimensions As Long, I1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long
     
     Const METHOD_NAME As String = "DBBytesAsVariant"
     
@@ -390,11 +389,11 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                 Case 1
                     If indexOfNext + DIMENSION_LENGTH * nDimensions > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewArrayOfType anArray, arrayType, i1, i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewArrayOfType anArray, arrayType, I1, i2
                     DBGetSafeArrayDetails anArray, SA
-                    dataLength = (i2 - i1 + 1) * SA.cbElements
+                    dataLength = (i2 - I1 + 1) * SA.cbElements
                     If indexOfNext + dataLength > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory ByVal SA.pvData, buffer(indexOfNext), dataLength: indexOfNext = indexOfNext + dataLength
                 Case 2
@@ -403,11 +402,11 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewArrayOfType anArray, arrayType, i1, i2, j1, j2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewArrayOfType anArray, arrayType, I1, i2, j1, j2
                     DBGetSafeArrayDetails anArray, SA
-                    dataLength = (i2 - i1 + 1) * (j2 - j1 + 1) * SA.cbElements
+                    dataLength = (i2 - I1 + 1) * (j2 - j1 + 1) * SA.cbElements
                     If indexOfNext + dataLength > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory ByVal SA.pvData, buffer(indexOfNext), dataLength: indexOfNext = indexOfNext + dataLength
                 Case 3
@@ -419,11 +418,11 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewArrayOfType anArray, arrayType, i1, i2, j1, j2, k1, k2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewArrayOfType anArray, arrayType, I1, i2, j1, j2, k1, k2
                     DBGetSafeArrayDetails anArray, SA
-                    dataLength = (i2 - i1 + 1) * (j2 - j1 + 1) * (k2 - k1 + 1) * SA.cbElements
+                    dataLength = (i2 - I1 + 1) * (j2 - j1 + 1) * (k2 - k1 + 1) * SA.cbElements
                     If indexOfNext + dataLength > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory ByVal SA.pvData, buffer(indexOfNext), dataLength: indexOfNext = indexOfNext + dataLength
                 Case Else
@@ -442,10 +441,10 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                 Case 1
                     If indexOfNext + DIMENSION_LENGTH * nDimensions > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewArrayOfType anArray, vbString, i1, i2
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewArrayOfType anArray, vbString, I1, i2
+                    For i = I1 To i2
                         If indexOfNext + SIZE_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                         apiCopyMemory dataLength, buffer(indexOfNext), SIZE_LENGTH: indexOfNext = indexOfNext + SIZE_LENGTH
                         If indexOfNext + dataLength + NULL_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
@@ -459,10 +458,10 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewArrayOfType anArray, vbString, i1, i2, j1, j2
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewArrayOfType anArray, vbString, I1, i2, j1, j2
+                    For i = I1 To i2
                         For j = j1 To j2
                             If indexOfNext + SIZE_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                             apiCopyMemory dataLength, buffer(indexOfNext), SIZE_LENGTH: indexOfNext = indexOfNext + SIZE_LENGTH
@@ -481,10 +480,10 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewArrayOfType anArray, vbString, i1, i2, j1, j2, k1, k2
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewArrayOfType anArray, vbString, I1, i2, j1, j2, k1, k2
+                    For i = I1 To i2
                         For j = j1 To j2
                             For k = k1 To k2
                                 If indexOfNext + SIZE_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
@@ -512,10 +511,10 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                 Case 1
                     If indexOfNext + DIMENSION_LENGTH * nDimensions > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewVariantArray anArray, i1, i2
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewVariantArray anArray, I1, i2
+                    For i = I1 To i2
                         anArray(i) = DBBytesAsVariant(buffer, indexOfBufferEndPlusOne, indexOfNext)
                     Next
                 Case 2
@@ -524,10 +523,10 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewVariantArray anArray, i1, i2, j1, j2
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewVariantArray anArray, I1, i2, j1, j2
+                    For i = I1 To i2
                         For j = j1 To j2
                             anArray(i, j) = DBBytesAsVariant(buffer, indexOfBufferEndPlusOne, indexOfNext)
                         Next
@@ -541,10 +540,10 @@ Function DBBytesAsVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, ind
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    DBCreateNewVariantArray anArray, i1, i2, j1, j2, k1, k2
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    DBCreateNewVariantArray anArray, I1, i2, j1, j2, k1, k2
+                    For i = I1 To i2
                         For j = j1 To j2
                             For k = k1 To k2
                                 anArray(i, j, k) = DBBytesAsVariant(buffer, indexOfBufferEndPlusOne, indexOfNext)
@@ -566,7 +565,7 @@ End Function
 
 Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEndPlusOne As Long, indexOfNext As Long) As Boolean
     Dim variantType As Integer, i As Long, j As Long, k As Long, dataLength As Long, nullCheck As Long
-    Dim arrayType As Integer, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long
+    Dim arrayType As Integer, nDimensions As Long, I1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long
     
     Const METHOD_NAME As String = "DBVerifyStructureOfSerialisedVariant"
     
@@ -630,9 +629,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                 Case 1
                     If indexOfNext + DIMENSION_LENGTH * nDimensions > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    dataLength = (i2 - i1 + 1) * lengthOfVbType(arrayType)
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    dataLength = (i2 - I1 + 1) * lengthOfVbType(arrayType)
                     If indexOfNext + dataLength > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     indexOfNext = indexOfNext + dataLength
                 Case 2
@@ -641,9 +640,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    dataLength = (i2 - i1 + 1) * (j2 - j1 + 1) * lengthOfVbType(arrayType)
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    dataLength = (i2 - I1 + 1) * (j2 - j1 + 1) * lengthOfVbType(arrayType)
                     If indexOfNext + dataLength > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     indexOfNext = indexOfNext + dataLength
                 Case 3
@@ -655,9 +654,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    dataLength = (i2 - i1 + 1) * (j2 - j1 + 1) * (k2 - k1 + 1) * lengthOfVbType(arrayType)
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    dataLength = (i2 - I1 + 1) * (j2 - j1 + 1) * (k2 - k1 + 1) * lengthOfVbType(arrayType)
                     If indexOfNext + dataLength > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     indexOfNext = indexOfNext + dataLength
                 Case Else
@@ -674,9 +673,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                 Case 1
                     If indexOfNext + DIMENSION_LENGTH * nDimensions > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    For i = I1 To i2
                         If indexOfNext + SIZE_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                         apiCopyMemory dataLength, buffer(indexOfNext), SIZE_LENGTH: indexOfNext = indexOfNext + SIZE_LENGTH
                         If indexOfNext + dataLength + NULL_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
@@ -690,9 +689,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    For i = I1 To i2
                         For j = j1 To j2
                             If indexOfNext + SIZE_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                             apiCopyMemory dataLength, buffer(indexOfNext), SIZE_LENGTH: indexOfNext = indexOfNext + SIZE_LENGTH
@@ -711,9 +710,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    For i = I1 To i2
                         For j = j1 To j2
                             For k = k1 To k2
                                 If indexOfNext + SIZE_LENGTH > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
@@ -739,9 +738,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                 Case 1
                     If indexOfNext + DIMENSION_LENGTH * nDimensions > indexOfBufferEndPlusOne Then DBErrors_raiseGeneralError ModuleSummary(), METHOD_NAME, "Out of buffer"
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    For i = I1 To i2
                         DBVerifyStructureOfSerialisedVariant = DBVerifyStructureOfSerialisedVariant(buffer, indexOfBufferEndPlusOne, indexOfNext)
                         If DBVerifyStructureOfSerialisedVariant = False Then Exit Function
                     Next
@@ -751,9 +750,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    For i = I1 To i2
                         For j = j1 To j2
                             DBVerifyStructureOfSerialisedVariant = DBVerifyStructureOfSerialisedVariant(buffer, indexOfBufferEndPlusOne, indexOfNext)
                              If DBVerifyStructureOfSerialisedVariant = False Then Exit Function
@@ -768,9 +767,9 @@ Function DBVerifyStructureOfSerialisedVariant(buffer() As Byte, indexOfBufferEnd
                     apiCopyMemory j1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
                     j2 = j1 + j2 - 1
                     apiCopyMemory i2, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + CELEMENTS_LENGTH
-                    apiCopyMemory i1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
-                    i2 = i1 + i2 - 1
-                    For i = i1 To i2
+                    apiCopyMemory I1, buffer(indexOfNext), CELEMENTS_LENGTH: indexOfNext = indexOfNext + LLBOUND_LENGTH
+                    i2 = I1 + i2 - 1
+                    For i = I1 To i2
                         For j = j1 To j2
                             For k = k1 To k2
                                 DBVerifyStructureOfSerialisedVariant = DBVerifyStructureOfSerialisedVariant(buffer, indexOfBufferEndPlusOne, indexOfNext)

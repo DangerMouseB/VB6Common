@@ -40,7 +40,7 @@ Function getSafeArrayPointer(anArray As Variant) As Long
 End Function
 
 Function redimPreserve(a As Variant, nDimensions As Long, x1 As Long, x2 As Long, y1 As Long, y2 As Long, z1 As Long, z2 As Long) As HRESULT
-    Dim ASA As SAFEARRAY, retVal As HRESULT, currentSize As Long, redimmedSize As Long, i As Long, b As Variant, pASA As Long, pBSA As Long, temp As Long, varType As Long
+    Dim ASA As SAFEARRAY, retval As HRESULT, currentSize As Long, redimmedSize As Long, i As Long, b As Variant, pASA As Long, pBSA As Long, temp As Long, varType As Long
     
     ' check the parameters
     If getSafeArrayDetails(a, ASA).HRESULT <> S_OK Then redimPreserve = CHRESULT(E_INVALIDARG): Exit Function
@@ -188,7 +188,7 @@ Function redimTranspose2D(anArray As Variant) As HRESULT
 End Function
 
 Function createDoubleArrayMap(oMap() As Double, ptr As Long, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long) As HRESULT
-    Dim ptrMapSA As Long, retVal As HRESULT
+    Dim ptrMapSA As Long, retval As HRESULT
     
     ' get VB to create the oMap's SAFEARRY with the appropiate number of dimensions
     Select Case nDimensions
@@ -240,7 +240,7 @@ Function createDoubleArrayMap(oMap() As Double, ptr As Long, nDimensions As Long
 End Function
 
 Function createSingleArrayMap(oMap() As Single, ptr As Long, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long) As HRESULT
-    Dim ptrMapSA As Long, retVal As HRESULT
+    Dim ptrMapSA As Long, retval As HRESULT
     
     ' get VB to create the oMap's SAFEARRY with the appropiate number of dimensions
     Select Case nDimensions
@@ -292,7 +292,7 @@ Function createSingleArrayMap(oMap() As Single, ptr As Long, nDimensions As Long
 End Function
 
 Function createDateArrayMap(oMap() As Date, ptr As Long, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long) As HRESULT
-    Dim ptrMapSA As Long, retVal As HRESULT
+    Dim ptrMapSA As Long, retval As HRESULT
     
     ' get VB to create the oMap's SAFEARRY with the appropiate number of dimensions
     Select Case nDimensions
@@ -344,7 +344,7 @@ Function createDateArrayMap(oMap() As Date, ptr As Long, nDimensions As Long, i1
 End Function
 
 Function createLongArrayMap(oMap() As Long, ptr As Long, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long) As HRESULT
-    Dim ptrMapSA As Long, retVal As HRESULT
+    Dim ptrMapSA As Long, retval As HRESULT
     
     ' get VB to create the oMap's SAFEARRY with the appropiate number of dimensions
     Select Case nDimensions
@@ -396,7 +396,7 @@ Function createLongArrayMap(oMap() As Long, ptr As Long, nDimensions As Long, i1
 End Function
 
 Function createIntegerArrayMap(oMap() As Integer, ptr As Long, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long) As HRESULT
-    Dim ptrMapSA As Long, retVal As HRESULT
+    Dim ptrMapSA As Long, retval As HRESULT
     
     ' get VB to create the oMap's SAFEARRY with the appropiate number of dimensions
     Select Case nDimensions
@@ -448,7 +448,7 @@ Function createIntegerArrayMap(oMap() As Integer, ptr As Long, nDimensions As Lo
 End Function
 
 Function createByteArrayMap(oMap() As Byte, ptr As Long, nDimensions As Long, i1 As Long, i2 As Long, j1 As Long, j2 As Long, k1 As Long, k2 As Long) As HRESULT
-    Dim ptrMapSA As Long, retVal As HRESULT
+    Dim ptrMapSA As Long, retval As HRESULT
     
     ' get VB to create the oMap's SAFEARRY with the appropiate number of dimensions
     Select Case nDimensions
@@ -500,7 +500,7 @@ Function createByteArrayMap(oMap() As Byte, ptr As Long, nDimensions As Long, i1
 End Function
 
 Function releaseArrayMap(map As Variant) As HRESULT
-    Dim ptrMapSA As Long, cLocks As Long, nDimensions As Integer, retVal As HRESULT
+    Dim ptrMapSA As Long, cLocks As Long, nDimensions As Integer, retval As HRESULT
     
     ' get the pointer to map's SAFEARRAY
     ptrMapSA = getSafeArrayPointer(map)
@@ -512,8 +512,8 @@ Function releaseArrayMap(map As Variant) As HRESULT
             Exit Function
         Case 1
             ' unlock the array
-            retVal = apiSafeArrayUnlock(ptrMapSA)
-            If retVal.HRESULT <> S_OK Then
+            retval = apiSafeArrayUnlock(ptrMapSA)
+            If retval.HRESULT <> S_OK Then
                 releaseArrayMap = CHRESULT(E_UNEXPECTED)
                 Exit Function
             End If

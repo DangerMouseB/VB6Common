@@ -35,7 +35,7 @@ Private Const MF_BYPOSITION = &H400
 Private Const TPM_RETURNCMD = &H100
 
 Private Declare Function apiCreatePopupMenu Lib "user32" Alias "CreatePopupMenu" () As Long
-Private Declare Function apiAppendMenu Lib "user32" Alias "AppendMenuA" (ByVal hMenu As Long, ByVal wFlags As Long, ByVal wIDNewItem As Long, ByVal lpNewItem As Any) As Long
+Private Declare Function apiAppendMenuA Lib "user32" Alias "AppendMenuA" (ByVal hMenu As Long, ByVal wFlags As Long, ByVal wIDNewItem As Long, ByVal lpNewItem As Any) As Long
 Private Declare Function apiGetSubMenu Lib "user32" Alias "GetSubMenu" (ByVal hMenu As Long, ByVal nPos As Long) As Long
 Private Declare Function apiCheckMenuRadioItem Lib "user32" Alias "CheckMenuRadioItem" (ByVal hMenu As Long, ByVal un1 As Long, ByVal un2 As Long, ByVal un3 As Long, ByVal un4 As Long) As Long
 Private Declare Function apiTrackPopupMenu Lib "user32" Alias "TrackPopupMenu" (ByVal hMenu As Long, ByVal wFlags As Long, ByVal x As Long, ByVal y As Long, ByVal nReserved As Long, ByVal hWnd As Long, ByVal lprc As Any) As Long
@@ -60,16 +60,16 @@ Sub createMenu()
 End Sub
 
 Sub addMenuItem(itemCaption As String, itemType As MF, itemNumber As Long)
-    apiAppendMenu myhMenu, itemType, itemNumber, itemCaption
+    apiAppendMenuA myhMenu, itemType, itemNumber, itemCaption
 End Sub
 
 Sub createSubmenu(itemCaption As String)
     myhSubMenu = apiCreatePopupMenu()
-    apiAppendMenu myhMenu, MF_POPUP, myhSubMenu, itemCaption
+    apiAppendMenuA myhMenu, MF_POPUP, myhSubMenu, itemCaption
 End Sub
 
 Sub addSubmenuItem(itemCaption As String, itemType As MF, itemNumber As Long)
-    apiAppendMenu myhSubMenu, itemType, itemNumber, itemCaption
+    apiAppendMenuA myhSubMenu, itemType, itemNumber, itemCaption
 End Sub
 
 Sub checkRadioItem(FirstItem As Long, LastItem As Long, RadioItem As Long)

@@ -84,7 +84,7 @@ Sub initVBRuntime(ByVal hMod As Long)
         pGetClass = GetProcAddress(hMod, "DllGetClassObject")
         If pGetClass Then
             CopyMemory pCall, initializeDelegator(FD, pGetClass), 4
-            lRet = pCall.Call(TA.iid, IID_ClassFactory, pICF)
+            lRet = pCall.call(TA.IID, IID_ClassFactory, pICF)
             If lRet <> CLASS_E_CLASSNOTAVAILABLE Then
                 lRet = pICF.CreateInstance(0&, IID_IUnknown, pUnk)
                 If lRet = S_OK Then
@@ -113,9 +113,9 @@ End Function
 
 Private Sub initializeVTables()
     Dim pAddRefRelease As Long
-    myVTables.VTable(0) = funcAddr(AddressOf queryInterfaceOK)
-    myVTables.VTable(4) = funcAddr(AddressOf queryInterfaceFail)
-    pAddRefRelease = funcAddr(AddressOf addRefRelease)
+    myVTables.VTable(0) = FuncAddr(AddressOf queryInterfaceOK)
+    myVTables.VTable(4) = FuncAddr(AddressOf queryInterfaceFail)
+    pAddRefRelease = FuncAddr(AddressOf AddRefRelease)
     myVTables.VTable(1) = pAddRefRelease
     myVTables.VTable(5) = pAddRefRelease
     myVTables.VTable(2) = pAddRefRelease
@@ -127,21 +127,21 @@ Private Sub initializeVTables()
     mypVTableFailQI = VarPtr(myVTables.VTable(4))
 End Sub
 
-Private Function queryInterfaceOK(this As FunctionDelegator, riid As Long, pvObj As Long) As Long
-    pvObj = VarPtr(this)
-    this.pVTable = mypVTableFailQI
+Private Function queryInterfaceOK(This As FunctionDelegator, riid As Long, pvObj As Long) As Long
+    pvObj = VarPtr(This)
+    This.pVTable = mypVTableFailQI
 End Function
 
-Private Function addRefRelease(ByVal this As Long) As Long
+Private Function AddRefRelease(ByVal This As Long) As Long
 End Function
 
-Private Function queryInterfaceFail(ByVal this As Long, riid As Long, pvObj As Long) As Long
+Private Function queryInterfaceFail(ByVal This As Long, riid As Long, pvObj As Long) As Long
     pvObj = 0
     queryInterfaceFail = E_NOINTERFACE
 End Function
 
-Private Function funcAddr(ByVal pfn As Long) As Long
-    funcAddr = pfn
+Private Function FuncAddr(ByVal pfn As Long) As Long
+    FuncAddr = pfn
 End Function
 
 'END FUNCTION DELEGATOR CODE
