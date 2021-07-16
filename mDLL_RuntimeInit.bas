@@ -1,7 +1,7 @@
 Attribute VB_Name = "mDLL_RuntimeInit"
 '*************************************************************************************************************************************************************************************************************************************************
 '
-' This module is from the vbAdvance product © 2001 - 2007 Young Dynamic Software. All rights reserved.
+' This module is from the vbAdvance product (c) 2001 - 2007 Young Dynamic Software. All rights reserved.
 '
 ' vbAdvance is now unsupported freeware - see http://vb.mvps.org/tools/vbAdvance/
 '
